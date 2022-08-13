@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+		"module": "ESNext",
+		"noEmit": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true,
+    "allowJs": true,
+		"declaration": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "strict": false,
+    "incremental": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "paths": {
+			"atoms": ["./src/ui/atoms"],
+			"atoms/*": ["./src/ui/atoms/*"],
+			"templates": ["./src/ui/templates"],
+			"templates/*": ["./src/ui/templates/*"],
+			"organisms": ["./src/ui/organisms"],
+			"organisms/*": ["./src/ui/organisms/*"],
+			"molecules": ["./src/ui/molecules"],
+			"molecules/*": ["./src/ui/molecules/*"],
+      "helpers": ["./src/helpers"],
+			"helpers/*": ["./src/helpers/*"],
+      "hooks": ["./src/hooks"],
+			"hooks/*": ["./src/hooks/*"],
+      "styles": ["./src/styles"],
+			"styles/*": ["./src/styles/*"],
+      "modules": ["./src/modules"],
+			"modules/*": ["./src/modules/*"],
+      "constants": ["./src/constants"],
+			"constants/*": ["./src/constants/*"],
+      "api": ["./src/api"],
+			"api/*": ["./src/api/*"],
+    },
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/stories.ts",
+    "**/stories.tsx"
+  ],
+  "files": [
+    "src/styles/styled.d.ts"
+  ]
+}
