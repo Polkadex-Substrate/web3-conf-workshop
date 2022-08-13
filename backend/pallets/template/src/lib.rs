@@ -56,7 +56,7 @@ pub mod pallet {
 		+ Mutate<<Self as frame_system::Config>::AccountId, Balance = u128, AssetId = u128>
 		+ Inspect<<Self as frame_system::Config>::AccountId>;
 		/// Asset
-		type PdexAsset: Get<u128>;
+		type TokenAsset: Get<u128>;
 	}
 
 	#[pallet::pallet]
@@ -106,21 +106,27 @@ pub mod pallet {
 			T::PoolCreatorOrigin::ensure_origin(origin)?;
 			<TokenPool<T>>::put(eth_pool_amount);
 			<PdexPool<T>>::put(pdex_pool_amount);
-			Self::deposit_event(Event::PoolInitialized(T::PdexAsset::get()));
+			Self::deposit_event(Event::PoolInitialized(T::TokenAsset::get()));
 			Ok(())
 		}
 
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1))]
 		pub fn swap(origin: OriginFor<T>, amount: BalanceOf<T>) -> DispatchResult {
 			let who = ensure_signed(origin)?;
-			T::AssetManager::teleport(T::PdexAsset::get(), &who, &T::PoolPalletId::get().try_into_account().unwrap(), amount.saturated_into::<u128>())?;
+			T::Currency::transfer(
+				&who,
+				&T::PoolPalletId::get().try_into_account().unwrap(),
+				amount,
+				ExistenceRequirement::KeepAlive,
+			)?;
+			T::AssetManager::teleport(T::TokenAsset::get(), &who, &T::PoolPalletId::get().try_into_account().unwrap(), amount.saturated_into::<u128>())?;
 			let invariant = <TokenPool<T>>::get() * <PdexPool<T>>::get();
 			let new_pdex_pool = <PdexPool<T>>::get() + amount;
             let new_token_pool = invariant / new_pdex_pool;
 			let token_out = <TokenPool<T>>::get() - new_token_pool;
 			<PdexPool<T>>::put(new_pdex_pool);
 			<TokenPool<T>>::put(new_token_pool);
-			T::AssetManager::mint_into(T::PdexAsset::get(), &who, token_out.saturated_into::<u128>())?;
+			T::AssetManager::mint_into(T::TokenAsset::get(), &who, token_out.saturated_into::<u128>())?;
 			Self::deposit_event(Event::CurrencySwapped(amount));
 			Ok(())
 		}

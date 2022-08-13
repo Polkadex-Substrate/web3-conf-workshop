@@ -269,7 +269,7 @@ impl pallet_sudo::Config for Runtime {
 
 parameter_types! {
 	pub const PoolPalletId: PalletId = PalletId(*b"py/trsry");
-	pub const PdexAsset: u128 = 1;
+	pub const TokenAsset: u128 = 1;
 }
 
 /// Configure the pallet-template in pallets/template.
@@ -280,7 +280,7 @@ impl pallet_template::Config for Runtime {
 	type PoolCreatorOrigin = EnsureRoot<AccountId>;
 	type PoolPalletId = PoolPalletId;
 	type AssetManager = Assets;
-	type PdexAsset = PdexAsset;
+	type TokenAsset = TokenAsset;
 }
 
 parameter_types! {
