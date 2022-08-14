@@ -272,41 +272,41 @@ parameter_types! {
 	pub const TokenAsset: u128 = 1;
 }
 
-/// Configure the pallet-template in pallets/template.
-impl pallet_template::Config for Runtime {
-	type Event = Event;
-	type Currency = Balances;
-	type AssetId = u128;
-	type PoolCreatorOrigin = EnsureRoot<AccountId>;
-	type PoolPalletId = PoolPalletId;
-	type AssetManager = Assets;
-	type TokenAsset = TokenAsset;
-}
+// /// Configure the pallet-template in pallets/template.
+// impl pallet_template::Config for Runtime {
+// 	type Event = Event;
+// 	type Currency = Balances;
+// 	type AssetId = u128;
+// 	type PoolCreatorOrigin = EnsureRoot<AccountId>;
+// 	type PoolPalletId = PoolPalletId;
+// 	type AssetManager = ();
+// 	type TokenAsset = TokenAsset;
+// }
 
-parameter_types! {
-	pub const AssetDeposit: Balance = 100 ;
-	pub const ApprovalDeposit: Balance = 1 ;
-	pub const StringLimit: u32 = 50;
-	pub const MetadataDepositBase: Balance = 10 ;
-	pub const MetadataDepositPerByte: Balance = 1;
-}
-
-impl pallet_assets::Config for Runtime {
-	type Event = Event;
-	type Balance = Balance;
-	type AssetId = u128;
-	type Currency = Balances;
-	type ForceOrigin = EnsureRoot<AccountId>;
-	type AssetDeposit = AssetDeposit;
-	type AssetAccountDeposit = AssetDeposit;
-	type MetadataDepositBase = MetadataDepositBase;
-	type MetadataDepositPerByte = MetadataDepositPerByte;
-	type ApprovalDeposit = ApprovalDeposit;
-	type StringLimit = StringLimit;
-	type Freezer = ();
-	type Extra = ();
-	type WeightInfo = ();
-}
+// parameter_types! {
+// 	pub const AssetDeposit: Balance = 100 ;
+// 	pub const ApprovalDeposit: Balance = 1 ;
+// 	pub const StringLimit: u32 = 50;
+// 	pub const MetadataDepositBase: Balance = 10 ;
+// 	pub const MetadataDepositPerByte: Balance = 1;
+// }
+//
+// impl pallet_assets::Config for Runtime {
+// 	type Event = Event;
+// 	type Balance = Balance;
+// 	type AssetId = u128;
+// 	type Currency = Balances;
+// 	type ForceOrigin = EnsureRoot<AccountId>;
+// 	type AssetDeposit = AssetDeposit;
+// 	type AssetAccountDeposit = AssetDeposit;
+// 	type MetadataDepositBase = MetadataDepositBase;
+// 	type MetadataDepositPerByte = MetadataDepositPerByte;
+// 	type ApprovalDeposit = ApprovalDeposit;
+// 	type StringLimit = StringLimit;
+// 	type Freezer = ();
+// 	type Extra = ();
+// 	type WeightInfo = ();
+// }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
@@ -324,8 +324,8 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
 		// Include the custom logic from the pallet-template in the runtime.
-		TemplateModule: pallet_template,
-		Assets: pallet_assets::{Pallet, Call, Storage, Event<T>},
+		//TemplateModule: pallet_template,
+		//Assets: pallet_assets::{Pallet, Call, Storage, Event<T>},
 	}
 );
 

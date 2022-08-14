@@ -37,14 +37,14 @@ export const useBalances = (reRender:boolean) => {
 
 const fetchEthBalance = async (api: ApiPromise, address: string) => {
     //TODO: implement this
-    const dataRaw = await api.query.assets.account('1', address);
-    const data: any = dataRaw.toJSON()
-    return data?.balance
+    // const dataRaw = await api.query.assets.account('1', address);
+    // const data: any = dataRaw.toJSON()
+    // return data?.balance
 }
 
 const fetchPdexBalance = async (api: ApiPromise, address: string) => {
     //TODO: implement this
-    const dataRaw = await api.query.system.account(address);
-    const data: any = dataRaw.toJSON()
-    return data?.data?.free
+    // const dataRaw = await api.query.system.account(address);
+    // const data: any = dataRaw.toJSON()
+    // return data?.data?.free
 }

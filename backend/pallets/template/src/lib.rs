@@ -99,34 +99,32 @@ pub mod pallet {
 	// Dispatchable functions must be annotated with a weight and must return a DispatchResult.
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
-		/// An example dispatchable that takes a singles value as a parameter, writes the value to
-		/// storage and emits an event. This function must be dispatched by a signed extrinsic.
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1))]
 		pub fn initialize_pool(origin: OriginFor<T>, eth_pool_amount: BalanceOf<T>, pdex_pool_amount: BalanceOf<T>) -> DispatchResult {
-			T::PoolCreatorOrigin::ensure_origin(origin)?;
-			<TokenPool<T>>::put(eth_pool_amount);
-			<PdexPool<T>>::put(pdex_pool_amount);
-			Self::deposit_event(Event::PoolInitialized(T::TokenAsset::get()));
+			// T::PoolCreatorOrigin::ensure_origin(origin)?;
+			// <TokenPool<T>>::put(eth_pool_amount);
+			// <PdexPool<T>>::put(pdex_pool_amount);
+			// Self::deposit_event(Event::PoolInitialized(T::TokenAsset::get()));
 			Ok(())
 		}
 
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1))]
 		pub fn swap(origin: OriginFor<T>, amount: BalanceOf<T>) -> DispatchResult {
-			let who = ensure_signed(origin)?;
-			T::Currency::transfer(
-				&who,
-				&T::PoolPalletId::get().try_into_account().unwrap(),
-				amount,
-				ExistenceRequirement::AllowDeath,
-			)?;
-			let invariant = <TokenPool<T>>::get() * <PdexPool<T>>::get();
-			let new_pdex_pool = <PdexPool<T>>::get() + amount;
-            let new_token_pool = invariant / new_pdex_pool;
-			let token_out = <TokenPool<T>>::get() - new_token_pool;
-			<PdexPool<T>>::put(new_pdex_pool);
-			<TokenPool<T>>::put(new_token_pool);
-			T::AssetManager::mint_into(T::TokenAsset::get(), &who, token_out.saturated_into::<u128>())?;
-			Self::deposit_event(Event::CurrencySwapped(amount));
+			// let who = ensure_signed(origin)?;
+			// T::Currency::transfer(
+			// 	&who,
+			// 	&T::PoolPalletId::get().try_into_account().unwrap(),
+			// 	amount,
+			// 	ExistenceRequirement::AllowDeath,
+			// )?;
+			// let invariant = <TokenPool<T>>::get() * <PdexPool<T>>::get();
+			// let new_pdex_pool = <PdexPool<T>>::get() + amount;
+            // let new_token_pool = invariant / new_pdex_pool;
+			// let token_out = <TokenPool<T>>::get() - new_token_pool;
+			// <PdexPool<T>>::put(new_pdex_pool);
+			// <TokenPool<T>>::put(new_token_pool);
+			// T::AssetManager::mint_into(T::TokenAsset::get(), &who, token_out.saturated_into::<u128>())?;
+			// Self::deposit_event(Event::CurrencySwapped(amount));
 			Ok(())
 		}
 

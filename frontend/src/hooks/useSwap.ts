@@ -44,7 +44,7 @@ export const useSwap=()=>{
 
 const createAndSendSwap = async (api: ApiPromise, user: User, amount: bigint) => {
     //TODO: implement swapPDEX
-    const ext = api.tx.templateModule.swap(amount)
-    const res = await signAndSendExtrinsic(api, ext, user.injector, user.address, true)
-    return res
+    // const ext = api.tx.templateModule.swap(amount)
+    // const res = await signAndSendExtrinsic(api, ext, user.injector, user.address, true)
+    // return res
 }
