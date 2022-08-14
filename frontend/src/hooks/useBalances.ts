@@ -12,16 +12,14 @@ export const useBalances = (reRender:boolean) => {
 
     const fetchAndSetPdexBalances = async () => {
         if (api && user.address) {
-            const dataRaw = await fetchPdexBalance(api, user.address);
-            const data: any = dataRaw.toJSON()    
-            data?.data?.free && setPdexBalance(formatToUnitStr(data?.data?.free))
+            const balance = await fetchPdexBalance(api, user.address);
+            balance && setPdexBalance(formatToUnitStr(balance))
         }
     }
     const fetchAndSetEthBalance = async () => {
         if (api && user.address) {
-            const dataRaw = await fetchEthBalance(api, user.address);
-            const data: any = dataRaw.toJSON()
-            data?.balance && setEthBalance(formatToUnitStr(data?.balance))
+            const balance = await fetchEthBalance(api, user.address);
+            balance && setEthBalance(formatToUnitStr(balance))
         }
     }
 
