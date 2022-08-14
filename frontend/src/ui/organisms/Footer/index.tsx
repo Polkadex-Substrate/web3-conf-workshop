@@ -50,12 +50,8 @@ export const Footer = ({ isVisible = true }: T.Props) => {
           {isVisible && (
             <Menu
               menuLinks={[
-                { title: 'Swap', path: '/' },
-                { title: 'Pools', path: '/pools' },
-                { title: 'Governance', path: '/governance' },
-                { title: 'Liquidity Mining', path: '/liquidityMining' }
+               
               ]}
-              accountLink={{ title: 'My Account', path: '/profile' }}
             />
           )}
         </S.Card>

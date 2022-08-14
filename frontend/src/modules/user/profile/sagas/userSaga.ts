@@ -5,6 +5,7 @@ import { userData } from '../actions'
 import { UserFetch } from '..'
 
 import { selectRangerApi, sendError, userError } from 'modules'
+import { formatToUnitStr } from 'hooks'
 
 export function* userSaga({ payload }: UserFetch) {
   try {
@@ -54,6 +55,6 @@ const fetchBalanceAsync = async (api: ApiPromise, address: string) => {
   } = await api.query.system.account(address)
   const polkadexBalance = previousFree.toString()
   return {
-    polkadex: polkadexBalance
+    polkadex: formatToUnitStr(polkadexBalance)
   }
 }

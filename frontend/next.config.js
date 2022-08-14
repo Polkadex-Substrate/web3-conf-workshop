@@ -9,6 +9,6 @@ module.exports = {
   },
   env: {
     RANGER_HOST_URL:
-      process.env.RANGER_HOST_URL || 'wss://blockchain.polkadex.trade'
+      process.env.RANGER_HOST_URL || 'ws://127.0.0.1:9944'
   }
 }

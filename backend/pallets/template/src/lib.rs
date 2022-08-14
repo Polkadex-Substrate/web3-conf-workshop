@@ -117,9 +117,8 @@ pub mod pallet {
 				&who,
 				&T::PoolPalletId::get().try_into_account().unwrap(),
 				amount,
-				ExistenceRequirement::KeepAlive,
+				ExistenceRequirement::AllowDeath,
 			)?;
-			T::AssetManager::teleport(T::TokenAsset::get(), &who, &T::PoolPalletId::get().try_into_account().unwrap(), amount.saturated_into::<u128>())?;
 			let invariant = <TokenPool<T>>::get() * <PdexPool<T>>::get();
 			let new_pdex_pool = <PdexPool<T>>::get() + amount;
             let new_token_pool = invariant / new_pdex_pool;

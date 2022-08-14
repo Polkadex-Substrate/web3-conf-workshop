@@ -12,6 +12,7 @@ import {
   PriceInformation
 } from 'molecules'
 import { FlexSpaceBetween } from 'atoms'
+import { useBalances, useSwap } from 'hooks'
 
 const defaultValues = {
   amountToSwap: '',
@@ -19,12 +20,15 @@ const defaultValues = {
 }
 
 export const Swap = ({ confirmTransaction, openSelectTokens }) => {
+  const { swapPDEX, loading } = useSwap();
+    const { ethBalance, pdexBalance } = useBalances(loading);
+
   return (
     <S.Wrapper>
       <Formik
         initialValues={defaultValues}
         onSubmit={async values => {
-          console.log(values)
+          swapPDEX(values.amountToSwap);
         }}
       >
         {({ values, errors, touched, setFieldValue }) => (
@@ -40,7 +44,7 @@ export const Swap = ({ confirmTransaction, openSelectTokens }) => {
                   label="You are swapping"
                   pairName="Polkadex"
                   pairTicker="PDEX"
-                  balance={0.93019292}
+                  balance={pdexBalance}
                   onClick={openSelectTokens}
                 >
                   <QuaternaryTextField name="amountToSwap" error="">
@@ -50,9 +54,9 @@ export const Swap = ({ confirmTransaction, openSelectTokens }) => {
                 <Icon name="Swap" size="large" background="primaryBackground" />
                 <SwapTextField
                   label="You will receive"
-                  pairName="Polkadot"
-                  pairTicker="DOT"
-                  balance={0}
+                  pairName="Ethereum"
+                  pairTicker="ETH"
+                  balance={ethBalance}
                   onClick={openSelectTokens}
                 >
                   <QuaternaryTextField name="amountToReceive" error="">
@@ -63,53 +67,18 @@ export const Swap = ({ confirmTransaction, openSelectTokens }) => {
               <S.Footer>
                 <FlexSpaceBetween>
                   <Button
-                    type="button"
-                    onClick={confirmTransaction}
+                    type="submit"
                     icon={{
                       name: 'Wallet',
                       background: 'primaryBackground',
                       size: 'extraMedium'
                     }}
                   >
-                    Swap
+                    {loading?"Swapping...":"Swap"}
                   </Button>
-                  <PriceInformation
-                    amount="1"
-                    tokenPair="PDEX"
-                    tokenTicker="DOT"
-                    price="1506.73"
-                  />
                 </FlexSpaceBetween>
               </S.Footer>
             </S.Container>
-            <S.TransactionContainer
-              isActive={!!values.amountToReceive && !!values.amountToSwap}
-            >
-              <InfomationCard
-                label="Minimum for Feeless"
-                tooltipText="Minimum for Feeless Text here"
-              >
-                0.91000100 PDEX
-              </InfomationCard>
-              <InfomationCard
-                label="Unlocking Block Number"
-                tooltipText="Unlocking Block Number Text here"
-              >
-                1079820491
-              </InfomationCard>
-              <InfomationCard
-                label="Average Amount for Feeless"
-                tooltipText="Average Amount for Feeless Text here"
-              >
-                0.9000000 PDEX
-              </InfomationCard>
-              <InfomationCard
-                label="Average Unlocking Period"
-                tooltipText="Average Unlocking Period Text here"
-              >
-                15 Min
-              </InfomationCard>
-            </S.TransactionContainer>
           </Form>
         )}
       </Formik>
